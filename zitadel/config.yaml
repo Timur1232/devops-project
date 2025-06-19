@@ -1,0 +1,17 @@
+ExternalSecure: false
+ExternalPort: 8080
+Database:
+  postgres:
+    Host: postgres
+    Port: 5432
+    Database: zitadel
+    User:
+      Username: admin
+      Password: admin_zitadel
+    SSL:
+      Mode: disable
+FirstInstance:
+  Org:
+    Human:
+      Username: "admin@example.com"
+      Password: "admin1" 
