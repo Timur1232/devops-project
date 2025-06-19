@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRS_DB: postgres
+      POSTGRES_DB: postgres
     networks:
       - backend
     healthcheck:
