@@ -6,8 +6,8 @@ Database:
     Port: 5432
     Database: zitadel
     User:
-      Username: admin
-      Password: admin_zitadel
+      Username: postgres
+      Password: postgres
     SSL:
       Mode: disable
 FirstInstance:
