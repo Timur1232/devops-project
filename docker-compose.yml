@@ -37,7 +37,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      NC_DB: "pg://postgres:5432?u=admin&p=admin_postgres&d=nocodb"
+      NC_DB: "pg://postgres:5432?u=postgres&p=postgres&d=nocodb"
     networks:
       - backend
 
@@ -47,7 +47,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etx/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/certs:/etc/nginx/certs
     depends_on:
       - zitadel
