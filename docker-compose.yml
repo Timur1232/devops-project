@@ -27,7 +27,10 @@ services:
       - ./zitadel:/zitadel
     command: 'start-from-init --masterkey "ExrDvBB9r0IA6L2NqprYmcUXIxJE/5VT" --tlsMode disabled'
     environment:
-      ZITADEL_EXTERNAL_SECURE: false
+      ZITADEL_EXTERNAL_DOMAIN: localhost
+      ZITADEL_EXTERNALPORT: 80
+      ZITADEL_EXTERNALSECURE: false
+      ZITADEL_EXTERNAL_ORIGIN: "http://localhost"
       ZITADEL_DATABASE_POSTGRES_HOST: postgres
       ZITADEL_DATABASE_POSTGRES_PORT: 5432
       ZITADEL_DATABASE_POSTGRES_DATABASE: zitadel
@@ -48,19 +51,22 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      NC_DB: "pg://postgres:5432?u=postgres&p=postgres&d=nocodb"
+      NC_DB: "pg://postgres:5432?u=postgres&p=postgres&d=postgres"
       NC_PORT: 8080
+      NC_BASE_URL: "/nocodb"
     networks:
       - backend
+    ports:
+      - "8081:8080"
 
   nginx:
-    image: nginx:alpine
+    image: nginx:latest
     ports:
       - "80:80"
-      - "443:443"
+        #- "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/certs:/etc/nginx/certs
+        #- ./nginx/certs:/etc/nginx/certs
     depends_on:
       - zitadel
       - nocodb
