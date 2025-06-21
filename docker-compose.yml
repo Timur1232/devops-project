@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certs:/etc/nginx/certs
+    depends_on:
+      - zitadel
+      - nocodb
+    networks:
+      - backend
+
   postgres:
     image: postgres:15-alpine
     restart: always
@@ -64,21 +79,6 @@ services:
       - "8081:8080"
     volumes:
       - ./nocodb:/usr/app/data
-
-  nginx:
-    image: nginx:latest
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/certs:/etc/nginx/certs
-    depends_on:
-      - zitadel
-      - nocodb
-    networks:
-      - backend
 
 networks:
   backend:
